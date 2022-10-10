@@ -17,5 +17,3 @@ jobs:
       run: ./fenString
     - name: Makefile
       run: make
-    - name: make distcheck
-      run: make distcheck
