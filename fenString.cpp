@@ -3,7 +3,9 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <cstring>
 #include <iterator>
+#include <map>
 using namespace std;
 
 /*
@@ -30,6 +32,26 @@ void FENString(string FEN){
     }
 
     //return words;
+}
+
+/* this function takes in a string with known rank number and returns
+file numbers of all valied congo pieces on the input string
+*/
+
+string fileNumber(string rankedString){
+
+    int counter=0;
+    map<char, int> mapObject;
+    for(int i=0;i<rankedString.length();i++){
+        if(isdigit(rankedString[i])){
+           //int correspondingNum = stoi(rankedString[i]);
+           int correspondingNum = rankedString[i] - '0';
+           counter = counter + correspondingNum;
+        }else{
+
+        }
+    }
+
 }
 
 int main(){
