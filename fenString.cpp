@@ -104,7 +104,52 @@ class Board{
     }
 
     void printPieceDetails(int file, int rank){
-        
+        Piece piece = getPiece(file, rank);
+        cout<<piece.position<<","<<piece.value<<endl;
     }
+
+    void logPositionOfPiece(){
+        for(int i=1;i<=7;i++){
+            for(int j=1;j<=7;j++){
+                Piece piece=getPiece(i,j);
+                
+                if(piece.value=='P'){
+                    piecePosition[0].push_back(piece.position);
+                }else if(piece.value=='p'){
+                    piecePosition[1].push_back(piece.position);
+                }else if(piece.value=='S'){
+                    piecePosition[2].push_back(piece.position);
+                }else if(piece.value=='s'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='G'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='g'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='M'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='m'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='E'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='e'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='L'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='l'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='C'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='c'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='Z'){
+                    piecePosition[3].push_back(piece.position);
+                }else if(piece.value=='z'){
+                    piecePosition[3].push_back(piece.position);
+                }
+            }
+        }
+    }
+
+    void printPositionOfPiece(){}
 
 };
