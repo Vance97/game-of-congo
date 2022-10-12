@@ -8,54 +8,103 @@
 #include <map>
 using namespace std;
 
-/*
-@ a function that takes in a space-separatedFEN string and splits it into
-  a vector of strings
-@ returns a vector of those strings.
-*/
-
-void FENString(string FEN){
-
-    char space_char = ' ';
-    vector<string> words{};
-
-    stringstream sstream(FEN);
-    string word;
-
-    while (getline(sstream, word, space_char)){
-        //word.erase(remove_if(word.begin(), word.end(), ::ispunct), word.end());
-        words.push_back(word);
+vector<string> splitString(string input, char character){
+    string word = "";
+    vector<string> outputString;
+    for(auto x:input){
+        if(x==character){
+            outputString.push_back(word);
+            word = "";
+        }else{
+            word = word+x;
+        }
     }
+    outputString.push_back(word);
 
-    for (const auto &str : words) {
-        cout << str << endl;
-    }
-
-    //return words;
+    return outputString;
 }
 
-/* this function takes in a string with known rank number and returns
-file numbers of all valied congo pieces on the input string
-*/
+class Piece{
+    public:
+    char file;
+    int rank;
+    char value;
+    string position;
 
-string fileNumber(string rankedString){
+    Piece(int column, int row, char type){
+        file = char(column+96);
+        rank=row;
+        position = file+to_string(rank);
+        value = type;
+    }
+};
 
-    int counter=0;
-    map<char, int> mapObject;
-    for(int i=0;i<rankedString.length();i++){
-        if(isdigit(rankedString[i])){
-           //int correspondingNum = stoi(rankedString[i]);
-           int correspondingNum = rankedString[i] - '0';
-           counter = counter + correspondingNum;
+class Board{
+    public:
+    vector<Piece> board;
+    string positionOfPieces;
+    string sideToMove;
+    int moveNumber;
+    vector<vector<string>>piecePosition = {{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}};
+
+    Board(string position, char side, int moveNum){
+        positionOfPieces = position;
+        if(side == 'w'){
+            sideToMove = "white";
         }else{
+            sideToMove = "black";
+        }
+        moveNumber = moveNum;
+    }
 
+    void createPiece(int col, int row, char v){
+        Piece piece(col, row, v);
+        board.push_back(piece);
+    }
+
+    void createBoard(){
+        int i = 7;
+        int j = 1;
+
+        for(int p = 0; p<positionOfPieces.length();p++){
+            char current = positionOfPieces[p];
+            if(isdigit(current)){
+                int intCurrent = int(current) - 48;
+                for(int k = 0;k<int(intCurrent);k++){
+                    createPiece(j,i,'n');
+                    j++;
+                }
+            }else if(current == '/'){
+                i--;
+                j=1;
+            }else{
+                createPiece(j,i,current);
+                j++;
+            }
         }
     }
 
-}
+    void printBoard(){
+        for(int i=0;i<7;i++){
+            for(int j;j<7;j++){
+                if(j!=6){
+                    cout<<board[i*7+j].value<<" ";
+                }else{
+                    cout<<board[i*7+j].value<<endl;
+                }
+            }
+        }
+    }
 
-int main(){
-    string myFEN = "2l4/7/4z2/4c2/PP2EP1/3L2p/7 b 23";
-    FENString(myFEN);
-    return 0;
-}
+    Piece getPiece(int file, int rank){
+        if(rank ==0 || file ==0){
+            cout<<"Out of bounds rank or file ranges from 1 to 7\n";
+        }
+        return board[49-7*rank+file-1];
+    }
+
+    void printPieceDetails(int file, int rank){
+        
+    }
+
+};
